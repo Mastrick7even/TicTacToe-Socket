@@ -13,11 +13,12 @@ public class GatoCliente {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-            BufferedReader clientInput = new BufferedReader(new InputStreamReader(System.in));
+            //BufferedReader clientInput = new BufferedReader(new InputStreamReader(System.in));
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("Conexion establecida satisfactoriamente.");
             int turno = 1; // contador de turnos
+            int contador = 0; // contador 
             while (true) {
                 clear(turno);
                 // Recibe mensajes del servidor
@@ -25,6 +26,7 @@ public class GatoCliente {
 
                 // Si el servidor solicita un movimiento, solicita entrada al usuario
                 if (mensajeServidor != null && mensajeServidor.startsWith("Ingrese")) {
+                    contador++;
                     System.out.println("Es su turno. " + mensajeServidor);
                     String movimiento = scanner.next();
 
@@ -43,7 +45,16 @@ public class GatoCliente {
                     System.out.println("Conexion terminada por el servidor");
                     break;
                 }
+                
+                if(contador == 2){
+                    contador = 0;
+                    turno++;
+                }
             }
+            scanner.close();
+            in.close();
+            out.close();
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

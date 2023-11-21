@@ -9,9 +9,10 @@ import java.util.Scanner;
 
 public class GatoServidor {
     public static int TAMANO_TABLERO = 3;
+    public static Scanner scanf = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
-        Scanner scanf = new Scanner(System.in);
+        
         try {
             ServerSocket serverSocket = new ServerSocket(12345);
             System.out.println("Esperando a que el cliente se conecte...");
@@ -28,9 +29,9 @@ public class GatoServidor {
             while (true) {
                 clear(turno);
                 mostrarTablero(tablero);
-                System.out.println("\nEsperando a que cliente finalice su turno...");
+                System.out.println("\nEsperando a que cliente finalice su turno...\n");
                 // Mensajes y datos que se le envian/piden al cliente
-                out.println("\n\n\nTurno " + turno + "\n---------------------------\n");
+                //out.println("\n\n\nTurno " + turno + "\n---------------------------\n");
 
                 out.println("Ingrese la fila: ");
                 int fila = Integer.parseInt(in.readLine());
@@ -90,12 +91,11 @@ public class GatoServidor {
     }
 
     private static void realizarJugadaServidor(char[][] tablero) {
-        Scanner scanf = new Scanner(System.in);
         int fila, columna;
         while (true) {
             System.out.println("Es su turno. Ingrese la fila: ");
             fila = scanf.nextInt();
-
+            System.out.println("\n");
             System.out.println("Ingrese la columna: ");
             columna = scanf.nextInt();
             if (fila >= 0 && fila <= TAMANO_TABLERO && columna >= 0 && columna <= TAMANO_TABLERO) {
